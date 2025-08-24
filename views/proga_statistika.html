@@ -1,0 +1,25 @@
+% rebase('osnova.html', title=proga.ime)
+<body>
+    <h1 class="text-center mt-5">Rezultati na progi {{proga.ime}}, {{proga.drzava}}</h1>
+
+    <div class="container mt-4">
+        <table class="table table-bordered table-striped text-center">
+            <thead>
+                <tr>
+                    <th>Leto</th>
+                    <th>Mesto</th>
+                    <th>Voznik</th>
+                </tr>
+            </thead>
+            <tbody>
+                % for leto, mesto, voznik in top3:
+                <tr>
+                    <td>{{leto}}</td>
+                    <td>{{mesto}}</td>
+                    <td>{{voznik}}</td>
+                </tr>
+                % end
+            </tbody>
+        </table>
+    </div>
+</body>

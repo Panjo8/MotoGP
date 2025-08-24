@@ -1,0 +1,36 @@
+% rebase('osnova.html', title='Proge')
+
+<body>
+    <div class="container my-5">
+        <div class="row g-4 justify-content-center">
+            <div class="col-12 col-md-4">
+                <div class="p-4 border rounded-3 bg-white shadow-sm h-100">
+                    <h5 class="mb-3 text-secondary text-center">Iskalnik prog</h5>
+                    <form action="/proga/" method="GET">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="search-input" placeholder="Išči progo..."
+                                name="iskalni_niz" value="{{iskalni_niz or ''}}">
+                            <button class="btn btn-light" type="submit" id="search-button">Išči</button>
+                        </div>
+                    </form>
+                    <ul class="list-unstyled" id="track-list">
+                        % if proge != "" and isinstance(proge[0], str):
+                        <li>
+                            <div class="alert alert-danger" role="alert">{{proge[0]}}</div>
+                        </li>
+                        % else:
+                        % for proga in proge:
+                        <li>
+                            <a href="/proga/{{proga.ime}}/" class="card-link d-block p-2 rounded"
+                                data-track-name="{{proga.ime}}">
+                                <span class="text-secondary">{{proga.ime}}</span>
+                            </a>
+                        </li>
+                        % end
+                        % end
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

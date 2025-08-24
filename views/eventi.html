@@ -1,0 +1,7 @@
+% rebase('osnova.html', title="Eventi")
+<h2>Seznam vseh eventov</h2>
+<ul>
+% for e in eventi:
+    <li><a href="/event/{{e.id}}/">{{e.ime}} ({{e.leto}})</a></li>
+% end
+</ul>

@@ -1,0 +1,9 @@
+a.no-underline {
+    text-decoration: none;
+    color: inherit;
+}
+
+.chessboard-navbar {
+    background-image: repeating-conic-gradient(#dee2e6 0% 25%, #f8f9fa 0% 50%) !important;
+    background-size: 50px 50px !important;
+}

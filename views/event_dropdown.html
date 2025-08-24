@@ -1,0 +1,60 @@
+% rebase('osnova.html', title="Eventi")
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Izberi dogodek</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+            flex-direction: column;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        select {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            min-width: 250px;
+            text-align: center;
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Izberi dogodek</h2>
+        <form action="/event/" method="get" 
+              onsubmit="window.location='/event/' + document.getElementById('izbor_eventa').value + '/'; return false;">
+            <select id="izbor_eventa">
+                % for e in eventi:
+                    <option value="{{e.id}}">{{e.ime}} ({{e.leto}})</option>
+                % end
+            </select>
+            <br>
+            <button type="submit">Prikaži</button>
+        </form>
+    </div>
+</body>
+</html>
+

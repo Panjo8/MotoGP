@@ -1,0 +1,38 @@
+% rebase('osnova.html', title='Vozniki')
+
+<body>
+    <div class="container my-5">
+        <div class="row g-4 justify-content-center">
+            <div class="col-12 col-md-4">
+                <div class="p-4 border rounded-3 bg-white shadow-sm h-100">
+                    <h5 class="mb-3 text-secondary text-center">Iskalnik voznikov</h5>
+                    <form action="/voznik/" method="GET">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="search-input" placeholder="Išči voznika..."
+                                name="iskalni_niz">
+                            <button class="btn btn-light" type="submit" id="search-button">Išči</button>
+                        </div>
+                    </form>
+                    <ul class="list-unstyled" id="driver-list">
+                        % if vozniki != "" and vozniki and isinstance(vozniki[0], str):
+                        <li>
+                            <div class="alert alert-danger" role="alert">{{vozniki[0]}}</div>
+                        </li>
+                        % else:
+                        % for voznik in vozniki:
+                        <li>
+                            <a href="/voznik/{{voznik.ime_priimek}}/" class="card-link d-block p-2 rounded"
+                                data-driver-name="{{voznik.ime_priimek}}">
+                                <span class="text-secondary">{{voznik.ime_priimek}}</span>
+                            </a>
+                        </li>
+                        % end
+                        % end
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>

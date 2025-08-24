@@ -1,0 +1,111 @@
+% rebase('osnova.html', title='MOTO GP')
+
+<h2>Dodaj rezultat</h2>
+<form action="/add_rezultat" method="post" class="form-box">
+    <label>Event:</label>
+    <select name="event_id" required>
+        % for event in eventi:
+            <option value="{{event[0]}}">{{event[1]}} - {{event[2]}}</option>
+        % end
+    </select>
+
+    <label>Voznik:</label>
+    <input type="text" name="voznik" required>
+
+    <label>Ekipa:</label>
+    <input type="text" name="ekipa" required>
+
+    <label>Mesto:</label>
+    <input type="number" name="mesto">
+
+    <label>Čas kroga:</label>
+    <input type="text" name="cas">
+
+    <label>Točke:</label>
+    <input type="number" name="tocke">
+
+    <input type="submit" value=" Dodaj rezultat" class="btn btn-blue">
+</form>
+
+<hr>
+
+<h2>Dodaj event</h2>
+<form action="/add_event" method="post" class="form-box">
+    <label>Leto:</label>
+    <input type="number" name="leto" required>
+
+    <label>Država:</label>
+    <select name="drzava" required>
+        % for drzava in drzave:
+            <option value="{{drzava}}">{{drzava}}</option>
+        % end
+    </select>
+
+    <input type="submit" value=" Dodaj event" class="btn btn-green">
+</form>
+
+<hr>
+
+<h2>Iskanje in brisanje</h2>
+
+<!-- Iskalnik -->
+<input type="text" id="searchBox" placeholder="Išči po imenu..." onkeyup="filterList()" style="width:100%; padding:8px; margin-bottom:15px;">
+
+<h3>Vozniki</h3>
+<ul id="voznikList">
+% for voznik in vozniki:
+    <li>
+        {{voznik[1]}}
+        <a href="/delete_voznik/{{voznik[0]}}/" onclick="return confirm('Izbrišem voznika {{voznik[1]}}?')" class="delete-link">izbriši</a>
+    </li>
+% end
+</ul>
+
+<h3>Ekipe</h3>
+<ul id="ekipaList">
+% for ekipa in ekipe:
+    <li>
+        {{ekipa[1]}}
+        <a href="/delete_ekipa/{{ekipa[0]}}/" onclick="return confirm('Izbrišem ekipo {{ekipa[1]}}?')" class="delete-link">izbriši</a>
+    </li>
+% end
+</ul>
+
+<h3>Eventi</h3>
+<ul id="eventList">
+% for e in eventi:
+    <li>
+        {{e[1]}} – {{e[2]}}
+        <a href="/delete_event/{{e[0]}}/" onclick="return confirm('Izbrišem event {{e[0]}}?')" class="delete-link">izbriši</a>
+    </li>
+% end
+</ul>
+
+<hr>
+
+<script>
+function filterList() {
+    let filter = document.getElementById('searchBox').value.toLowerCase();
+    let lists = [document.getElementById('voznikList'),
+                 document.getElementById('ekipaList'),
+                 document.getElementById('eventList')];
+    lists.forEach(list => {
+        if (list) {
+            let items = list.getElementsByTagName('li');
+            for (let i = 0; i < items.length; i++) {
+                let txt = items[i].innerText.toLowerCase();
+                items[i].style.display = txt.includes(filter) ? "" : "none";
+            }
+        }
+    });
+}
+</script>
+
+<style>
+.form-box {margin-bottom:20px;}
+.form-box input, .form-box select {margin-bottom:10px; padding:6px; width:100%;}
+.btn {padding:8px 12px; border:none; border-radius:4px; cursor:pointer;}
+.btn-blue {background:#007bff; color:#fff;}
+.btn-green {background:#28a745; color:#fff;}
+.delete-link {color:red; margin-left:10px; text-decoration:none;}
+</style>
