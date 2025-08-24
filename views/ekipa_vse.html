@@ -1,50 +1,39 @@
-% rebase('osnova.html', title='Ekipe')
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>{{ekipa.ime}} - vozniki</title>
-    <style>
-        body { font-family: Arial, sans-serif; }
-        .container {
-            max-width: 700px;
-            margin: 40px auto;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            background-color: rgba(255,255,255,0.9);
-        }
-        h2 { text-align: center; margin-bottom: 20px; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: center;
-        }
-        th { background-color: #007bff; color: white; }
-        tr:nth-child(even) { background-color: #f9f9f9; }
-    </style>
-</head>
+% rebase('osnova.html', title=ekipa.ime)
+
 <body>
-    <div class="container">
-        <h2>Vozniki ekipe {{ekipa.ime}}</h2>
-<table>
-    <tr>
-        <th>Leto</th>
-        <th>Voznik</th>
-        <th>Točke</th>
-        <th>Najhitrejši čas</th>
-        <th>Proga</th>
-    </tr>
-    % for leto, voznik, tocke, cas, proga in vozniki:
-        <tr>
-            <td>{{leto}}</td>
-            <td>{{voznik}}</td>
-            <td>{{tocke}}</td>
-            <td>{{cas}}</td>
-            <td>{{proga}}</td>
-        </tr>
-    % end
-</table>
+    <div class="d-flex mt-5 justify-content-center align-items-start">
+        <div class="row g-4 justify-content-center">
+            <div class="col-12 col-md-10">
+                <div class="p-4 border rounded-3 bg-white shadow-sm">
+                    <h2 class="text-center mb-4">Vozniki ekipe {{ekipa.ime}}</h2>
+
+                    <table class="table table-bordered">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Leto</th>
+                                <th>Voznik</th>
+                                <th>Točke</th>
+                                <th>Najhitrejši čas</th>
+                                <th>Proga</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            % for leto, voznik, tocke, cas, proga in vozniki:
+                            <tr>
+                                <td>{{leto}}</td>
+                                <td>{{voznik}}</td>
+                                <td>{{tocke}}</td>
+                                <td>{{cas}}</td>
+                                <td>{{proga}}</td>
+                            </tr>
+                            % end
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4 text-center">
+                    <a href="/ekipa/" class="btn btn-light">Nazaj</a>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
-</html>

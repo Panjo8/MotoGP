@@ -1,84 +1,46 @@
-% rebase('osnova.html', title="Eventi")
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>{{event.ime}} ({{event.leto}})</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            background-color: rgba(255,255,255,0.85);
-        }
-        h2 {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-        .info {
-            font-size: 18px;
-            margin-bottom: 20px;
-            padding: 15px;
-            border-radius: 10px;
-            background-color: #f9f9f9;
-        }
-        .info b {
-            color: #007bff;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 25px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: center;
-        }
-        th {
-            background-color: #007bff;
-            color: white;
-        }
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-    </style>
-</head>
+% rebase('osnova.html', title="Podrobnosti eventa/dogodka")
 <body>
-    <div class="container">
-        <h2>{{event.ime}} ({{event.leto}})</h2>
+    <div class="d-flex mt-5 justify-content-center align-items-start">
+        <div class="row g-4 justify-content-center">
+            <div class="col-12 col-md-8">
+                <div class="p-4 border rounded-3 bg-white shadow-sm">
+                    <h2 class="text-center mb-4">{{event.ime}} ({{event.leto}})</h2>
 
-        % if proga and voznik and cas:
-            <div class="info">
-                Najhitrejši krog na <b>{{proga}}</b> je postavil 
-                <b>{{voznik}}</b> s časom <b>{{cas}}</b>.
-            </div>
-        % else:
-            <div class="info">
-                Podatek o najhitrejšem krogu ni na voljo.
-            </div>
-        % end
+                    % if proga and voznik and cas:
+                        <div class="alert alert-info text-center">
+                            Najhitrejši krog na <strong>{{proga}}</strong> je postavil 
+                            <strong>{{voznik}}</strong> s časom <strong>{{cas}}</strong>.
+                        </div>
+                    % else:
+                        <div class="alert alert-warning text-center">
+                            Podatek o najhitrejšem krogu ni na voljo.
+                        </div>
+                    % end
 
-        <h3>Rezultati dirke</h3>
-        <table>
-            <tr>
-                <th>Mesto</th>
-                <th>Voznik</th>
-                <th>Točke</th>
-            </tr>
-            % for mesto, ime_priimek, tocke in event.poisci_rezultate_eventa():
-                <tr>
-                    <td>{{mesto}}</td>
-                    <td>{{ime_priimek}}</td>
-                    <td>{{tocke}}</td>
-                </tr>
-            % end
-        </table>
+                    <h4 class="mb-3">Rezultati dirke</h4>
+                    <table class="table table-bordered">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Mesto</th>
+                                <th>Voznik</th>
+                                <th>Točke</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            % for mesto, ime_priimek, tocke in event.poisci_rezultate_eventa():
+                            <tr>
+                                <td>{{mesto}}</td>
+                                <td>{{ime_priimek}}</td>
+                                <td>{{tocke}}</td>
+                            </tr>
+                            % end
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4 text-center">
+                    <a href="/event/" class="btn btn-light">Nazaj</a>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
-</html>

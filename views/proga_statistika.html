@@ -1,25 +1,36 @@
 % rebase('osnova.html', title=proga.ime)
 <body>
-    <h1 class="text-center mt-5">Rezultati na progi {{proga.ime}}, {{proga.drzava}}</h1>
+    <div class="d-flex mt-5 justify-content-center align-items-start">
+        <div class="row g-4 justify-content-center">
+            <div class="col-12 col-md-8">
+                <div class="p-4 border rounded-3 bg-white shadow-sm">
+                    <h2 class="text-center mb-4">
+                        Rezultati na progi {{proga.ime}}, {{proga.drzava}}
+                    </h2>
 
-    <div class="container mt-4">
-        <table class="table table-bordered table-striped text-center">
-            <thead>
-                <tr>
-                    <th>Leto</th>
-                    <th>Mesto</th>
-                    <th>Voznik</th>
-                </tr>
-            </thead>
-            <tbody>
-                % for leto, mesto, voznik in top3:
-                <tr>
-                    <td>{{leto}}</td>
-                    <td>{{mesto}}</td>
-                    <td>{{voznik}}</td>
-                </tr>
-                % end
-            </tbody>
-        </table>
+                    <table class="table table-bordered">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Leto</th>
+                                <th>Mesto</th>
+                                <th>Voznik</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            % for leto, mesto, voznik in top3:
+                            <tr>
+                                <td>{{leto}}</td>
+                                <td>{{mesto}}</td>
+                                <td>{{voznik}}</td>
+                            </tr>
+                            % end
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4 text-center">
+                    <a href="/proga/" class="btn btn-light">Nazaj</a>
+                </div>
+            </div>
+        </div>
     </div>
 </body>

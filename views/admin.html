@@ -1,111 +1,132 @@
-% rebase('osnova.html', title='MOTO GP')
+% rebase('osnova.html', title='admin')
 
-<h2>Dodaj rezultat</h2>
-<form action="/add_rezultat" method="post" class="form-box">
-    <label>Event:</label>
-    <select name="event_id" required>
-        % for event in eventi:
-            <option value="{{event[0]}}">{{event[1]}} - {{event[2]}}</option>
-        % end
-    </select>
+<body>
+    <div class="container my-5">
+        <div class="row g-4 justify-content-center">
+            <div class="col-12 col-md-8">
+                <!-- Dodaj rezultat -->
+                <div class="p-4 border rounded-3 bg-white shadow-sm mb-4">
+                    <h3 class="mb-4 text-center">Dodaj rezultat</h3>
+                    <form action="/add_rezultat" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Event:</label>
+                            <select name="event_id" class="form-select" required>
+                                % for event in eventi:
+                                    <option value="{{event[0]}}">{{event[1]}} - {{event[2]}}</option>
+                                % end
+                            </select>
+                        </div>
 
-    <label>Voznik:</label>
-    <input type="text" name="voznik" required>
+                        <div class="mb-3">
+                            <label class="form-label">Voznik:</label>
+                            <input type="text" name="voznik" class="form-control" required>
+                        </div>
 
-    <label>Ekipa:</label>
-    <input type="text" name="ekipa" required>
+                        <div class="mb-3">
+                            <label class="form-label">Ekipa:</label>
+                            <input type="text" name="ekipa" class="form-control" required>
+                        </div>
 
-    <label>Mesto:</label>
-    <input type="number" name="mesto">
+                        <div class="mb-3">
+                            <label class="form-label">Mesto:</label>
+                            <input type="number" name="mesto" class="form-control">
+                        </div>
 
-    <label>Čas kroga:</label>
-    <input type="text" name="cas">
+                        <div class="mb-3">
+                            <label class="form-label">Čas kroga:</label>
+                            <input type="text" name="cas" class="form-control">
+                        </div>
 
-    <label>Točke:</label>
-    <input type="number" name="tocke">
+                        <div class="mb-3">
+                            <label class="form-label">Točke:</label>
+                            <input type="number" name="tocke" class="form-control">
+                        </div>
 
-    <input type="submit" value=" Dodaj rezultat" class="btn btn-blue">
-</form>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-light">Dodaj rezultat</button>
+                        </div>
+                    </form>
+                </div>
 
-<hr>
+                <!-- Dodaj event -->
+                <div class="p-4 border rounded-3 bg-white shadow-sm mb-4">
+                    <h3 class="mb-4 text-center">Dodaj event</h3>
+                    <form action="/add_event" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Leto:</label>
+                            <input type="number" name="leto" class="form-control" required>
+                        </div>
 
-<h2>Dodaj event</h2>
-<form action="/add_event" method="post" class="form-box">
-    <label>Leto:</label>
-    <input type="number" name="leto" required>
+                        <div class="mb-3">
+                            <label class="form-label">Država:</label>
+                            <select name="drzava" class="form-select" required>
+                                % for drzava in drzave:
+                                    <option value="{{drzava}}">{{drzava}}</option>
+                                % end
+                            </select>
+                        </div>
 
-    <label>Država:</label>
-    <select name="drzava" required>
-        % for drzava in drzave:
-            <option value="{{drzava}}">{{drzava}}</option>
-        % end
-    </select>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-light">Dodaj event</button>
+                        </div>
+                    </form>
+                </div>
 
-    <input type="submit" value=" Dodaj event" class="btn btn-green">
-</form>
+                <!-- Iskanje in brisanje -->
+                <div class="p-4 border rounded-3 bg-white shadow-sm">
+                    <h3 class="mb-3 text-center">Iskanje in brisanje</h3>
 
-<hr>
+                    <input type="text" id="searchBox" class="form-control mb-3" placeholder="Išči po imenu..." onkeyup="filterList()">
 
-<h2>Iskanje in brisanje</h2>
+                    <h5>Vozniki</h5>
+                    <ul id="voznikList" class="list-group mb-3">
+                        % for voznik in vozniki:
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{voznik[1]}}
+                            <a href="/delete_voznik/{{voznik[0]}}/" onclick="return confirm('Izbrišem voznika {{voznik[1]}}?')" class="text-danger">izbriši</a>
+                        </li>
+                        % end
+                    </ul>
 
-<!-- Iskalnik -->
-<input type="text" id="searchBox" placeholder="Išči po imenu..." onkeyup="filterList()" style="width:100%; padding:8px; margin-bottom:15px;">
+                    <h5>Ekipe</h5>
+                    <ul id="ekipaList" class="list-group mb-3">
+                        % for ekipa in ekipe:
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ekipa[1]}}
+                            <a href="/delete_ekipa/{{ekipa[0]}}/" onclick="return confirm('Izbrišem ekipo {{ekipa[1]}}?')" class="text-danger">izbriši</a>
+                        </li>
+                        % end
+                    </ul>
 
-<h3>Vozniki</h3>
-<ul id="voznikList">
-% for voznik in vozniki:
-    <li>
-        {{voznik[1]}}
-        <a href="/delete_voznik/{{voznik[0]}}/" onclick="return confirm('Izbrišem voznika {{voznik[1]}}?')" class="delete-link">izbriši</a>
-    </li>
-% end
-</ul>
+                    <h5>Eventi</h5>
+                    <ul id="eventList" class="list-group">
+                        % for e in eventi:
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{e[1]}} – {{e[2]}}
+                            <a href="/delete_event/{{e[0]}}/" onclick="return confirm('Izbrišem event {{e[0]}}?')" class="text-danger">izbriši</a>
+                        </li>
+                        % end
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<h3>Ekipe</h3>
-<ul id="ekipaList">
-% for ekipa in ekipe:
-    <li>
-        {{ekipa[1]}}
-        <a href="/delete_ekipa/{{ekipa[0]}}/" onclick="return confirm('Izbrišem ekipo {{ekipa[1]}}?')" class="delete-link">izbriši</a>
-    </li>
-% end
-</ul>
-
-<h3>Eventi</h3>
-<ul id="eventList">
-% for e in eventi:
-    <li>
-        {{e[1]}} – {{e[2]}}
-        <a href="/delete_event/{{e[0]}}/" onclick="return confirm('Izbrišem event {{e[0]}}?')" class="delete-link">izbriši</a>
-    </li>
-% end
-</ul>
-
-<hr>
-
-<script>
-function filterList() {
-    let filter = document.getElementById('searchBox').value.toLowerCase();
-    let lists = [document.getElementById('voznikList'),
-                 document.getElementById('ekipaList'),
-                 document.getElementById('eventList')];
-    lists.forEach(list => {
-        if (list) {
-            let items = list.getElementsByTagName('li');
-            for (let i = 0; i < items.length; i++) {
-                let txt = items[i].innerText.toLowerCase();
-                items[i].style.display = txt.includes(filter) ? "" : "none";
-            }
+    <script>
+        function filterList() {
+            let filter = document.getElementById('searchBox').value.toLowerCase();
+            let lists = [document.getElementById('voznikList'),
+                         document.getElementById('ekipaList'),
+                         document.getElementById('eventList')];
+            lists.forEach(list => {
+                if (list) {
+                    let items = list.getElementsByTagName('li');
+                    for (let i = 0; i < items.length; i++) {
+                        let txt = items[i].innerText.toLowerCase();
+                        items[i].style.display = txt.includes(filter) ? "" : "none";
+                    }
+                }
+            });
         }
-    });
-}
-</script>
-
-<style>
-.form-box {margin-bottom:20px;}
-.form-box input, .form-box select {margin-bottom:10px; padding:6px; width:100%;}
-.btn {padding:8px 12px; border:none; border-radius:4px; cursor:pointer;}
-.btn-blue {background:#007bff; color:#fff;}
-.btn-green {background:#28a745; color:#fff;}
-.delete-link {color:red; margin-left:10px; text-decoration:none;}
-</style>
+    </script>
+</body>

@@ -1,9 +1,27 @@
-% rebase('osnova.html', title='MOTO GP')
-<h2>Prijava za admina</h2>
-<form action="/login" method="post">
-    <label>Uporabnik:</label>
-    <input name="username" type="text" /><br>
-    <label>Geslo:</label>
-    <input name="password" type="password" /><br>
-    <input value="Prijava" type="submit" />
-</form>
+% rebase('osnova.html', title='login')
+<body>
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="p-4 border rounded-3 bg-white shadow-sm">
+                    <h3 class="text-center mb-4">Prijava za admina</h3>
+                    <form action="/login" method="post">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Uporabnik:</label>
+                            <input name="username" type="text" id="username" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Geslo:</label>
+                            <input name="password" type="password" id="password" class="form-control" required>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-light">Prijava</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

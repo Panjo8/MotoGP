@@ -1,60 +1,27 @@
-% rebase('osnova.html', title="Eventi")
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Izberi dogodek</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 80vh;
-            flex-direction: column;
-        }
-        h2 {
-            margin-bottom: 20px;
-        }
-        select {
-            padding: 10px;
-            font-size: 16px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            min-width: 250px;
-            text-align: center;
-        }
-        button {
-            margin-top: 15px;
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            background-color: #007bff;
-            color: white;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
-</head>
+% rebase('osnova.html', title="Eventi/dogodki")
 <body>
-    <div class="container">
-        <h2>Izberi dogodek</h2>
-        <form action="/event/" method="get" 
-              onsubmit="window.location='/event/' + document.getElementById('izbor_eventa').value + '/'; return false;">
-            <select id="izbor_eventa">
-                % for e in eventi:
-                    <option value="{{e.id}}">{{e.ime}} ({{e.leto}})</option>
-                % end
-            </select>
-            <br>
-            <button type="submit">Prikaži</button>
-        </form>
+    <div class="container my-5">
+        <div class="row g-4 justify-content-center">
+            <div class="col-12 col-md-4">
+                <div class="p-4 border rounded-3 bg-white shadow-sm h-100">
+                    <h5 class="mb-3 text-secondary text-center">Izberi dogodek</h5>
+                    <form action="/event/" method="get" 
+                          onsubmit="window.location='/event/' + document.getElementById('izbor_eventa').value + '/'; return false;">
+                        <div class="mb-3">
+                            <select class="form-select" id="izbor_eventa" name="event">
+                                % for e in eventi:
+                                    <option value="{{e.id}}">{{e.ime}} ({{e.leto}})</option>
+                                % end
+                            </select>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-light">Prikaži</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
-</html>
+
 
